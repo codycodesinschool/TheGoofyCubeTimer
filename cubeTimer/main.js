@@ -5,6 +5,27 @@ let timeHeader = document.querySelector(".Heading");
 let AO5Header = document.querySelector(".ao5");
 let times = [];
 
+try {
+    if (localStorage.getItem('times').length > 3) {
+        try {
+            times = localStorage.getItem('times').split(",");
+
+        } catch {
+            console.log(localStorage.getItem('times').split(","));
+            console.log(
+                "times failed to load"
+            )
+
+            times = [];
+        }
+    }
+} catch(err) {
+    console.log("length error i think")
+    console.log(err);
+}
+
+
+
 addEventListener('keyup', event => {
     key = event.key;
     console.log(key);
@@ -91,4 +112,8 @@ function updateGraph() {
   pChart = new Chart(ctx, config);
   pChart.canvas.parentNode.style.height = '50%';
   pChart.canvas.parentNode.style.width = '50%';
+  localStorage.setItem("times",times.toString())
+    console.log("stored")
 }
+
+updateGraph();
